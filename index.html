@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGAR Furniture Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --dark: #1a1f1a;
+    --darker: #111511;
+    --olive: #3d5a3e;
+    --olive-light: #4e7150;
+    --olive-muted: rgba(61,90,62,0.35);
+    --cream: #f2ede6;
+    --text-light: rgba(255,255,255,0.85);
+    --text-muted: rgba(255,255,255,0.5);
+    --card-bg: rgba(20,26,20,0.82);
+    --card-border: rgba(255,255,255,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --nav-h: 74px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--darker);
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--darker); }
+  ::-webkit-scrollbar-thumb { background: var(--olive); border-radius: 99px; }
+
+  /* ─── PAGE WRAPPER ─── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ══════════════════════════════════════════
+     NAV
+  ══════════════════════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    display: flex; align-items: center;
+    padding: 0 2.5rem;
+    background: rgba(17,21,17,0.65);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .nav-left {
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .hamburger {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.05);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    cursor: pointer;
+  }
+  .hamburger span {
+    width: 16px; height: 1.5px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 0.3rem;
+    margin-left: 1rem;
+  }
+
+  .nav-links a {
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 1px solid transparent;
+  }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+  .nav-links a.active {
+    color: #fff;
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .nav-logo {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center;
+  }
+  .nav-logo img {
+    height: 38px; width: auto;
+    object-fit: contain;
+  }
+
+  .nav-right {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .nav-customers {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.35rem 0.9rem 0.35rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--card-border);
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+  }
+
+  .avatars {
+    display: flex;
+  }
+  .avatars span {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2px solid rgba(17,21,17,0.8);
+    background: var(--olive);
+    margin-left: -8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700; color: #fff;
+    overflow: hidden;
+  }
+  .avatars span:first-child { margin-left: 0; }
+  .avatars span img { width: 100%; height: 100%; object-fit: cover; }
+
+  .nav-icon-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .nav-icon-btn:hover { background: rgba(255,255,255,0.12); }
+  .nav-icon-btn svg { width: 17px; height: 17px; stroke: rgba(255,255,255,0.75); fill: none; stroke-width: 1.8; }
+
+  /* ══════════════════════════════════════════
+     HOME PAGE
+  ══════════════════════════════════════════ */
+  #home {
+    min-height: 100vh;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+
+  .hero {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex; align-items: center;
+  }
+
+  /* Slides */
+  .hero-slides { position: absolute; inset: 0; }
+  .hero-slide {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .hero-slide.active { opacity: 1; }
+  .hero-slide::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(10,14,10,0.75) 0%,
+      rgba(10,14,10,0.3) 50%,
+      rgba(10,14,10,0.1) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 3rem;
+    max-width: 600px;
+    margin-top: var(--nav-h);
+  }
+
+  .hero-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.8rem;
+    color: #fff;
+  }
+  .hero-title strong { font-weight: 900; }
+
+  /* Slide counter */
+  .slide-counter {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .slide-counter .num {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .slide-counter .line {
+    flex: 1; max-width: 220px;
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  .slide-counter .line::after {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    height: 100%;
+    background: rgba(255,255,255,0.6);
+    transition: width 0.5s;
+  }
+
+  /* Hero card popup */
+  .hero-card {
+    position: absolute;
+    bottom: 10%;
+    right: 3rem;
+    z-index: 3;
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+    width: 300px;
+    display: flex; align-items: flex-start; gap: 1rem;
+    animation: floatUp 0.8s ease both;
+  }
+  @keyframes floatUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-card-img {
+    width: 90px; height: 84px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .hero-card-body { flex: 1; }
+  .hero-card-body h3 {
+    font-size: 1rem; font-weight: 700;
+    margin-bottom: 0.35rem;
+    line-height: 1.25;
+  }
+  .hero-card-body p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+  }
+
+  .card-actions {
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+
+  .btn-shop {
+    padding: 0.42rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.92);
+    color: #111;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: none; cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-shop:hover { background: #fff; }
+
+  .btn-heart {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .btn-heart svg { width: 14px; height: 14px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 1.8; }
+
+  /* Thumbnail strip */
+  .hero-thumb-strip {
+    position: absolute;
+    right: calc(300px + 4.5rem);
+    bottom: 10%;
+    z-index: 3;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .hero-thumb {
+    width: 80px; height: 84px;
+    object-fit: cover;
+    opacity: 0.45;
+    cursor: pointer;
+    transition: opacity 0.3s;
+    border-radius: 0;
+  }
+  .hero-thumb:first-child { border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+  .hero-thumb:last-child  { border-radius: 0 0 var(--radius-sm) var(--radius-sm); }
+  .hero-thumb.active, .hero-thumb:hover { opacity: 1; }
+
+  /* Nav arrows */
+  .hero-arrows {
+    position: absolute;
+    bottom: 2.5rem; right: 3rem;
+    z-index: 4;
+    display: flex; gap: 0.5rem;
+  }
+  .arrow-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .arrow-btn:hover { background: rgba(255,255,255,0.2); }
+  .arrow-btn svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; }
+
+  /* ─── SECTION: Features ─── */
+  .features-section {
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    background: var(--dark);
+  }
+
+  .feature-card {
+    padding: 2rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .feature-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.055);
+  }
+
+  .feature-icon {
+    width: 48px; height: 48px;
+    border-radius: var(--radius-sm);
+    background: var(--olive-muted);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.2rem;
+  }
+  .feature-icon svg { width: 22px; height: 22px; stroke: #8fb98f; fill: none; stroke-width: 1.8; }
+  .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .feature-card p  { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ─── SECTION: Best Sellers ─── */
+  .section-header {
+    padding: 4rem 3rem 2rem;
+    display: flex; align-items: flex-end; justify-content: space-between;
+  }
+  .section-header h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .section-header h2 span { color: var(--olive-light); }
+  .section-header a {
+    font-size: 0.83rem; color: var(--text-muted);
+    text-decoration: none; cursor: pointer;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 0.3rem;
+  }
+  .section-header a:hover { color: #fff; }
+
+  .products-grid {
+    padding: 0 3rem 5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+
+  .product-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.03);
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.14);
+  }
+
+  .product-img-wrap {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+  .product-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  .product-card:hover .product-img-wrap img { transform: scale(1.07); }
+
+  .product-badge {
+    position: absolute; top: 10px; left: 10px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.68rem; font-weight: 600;
+    background: var(--olive);
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+
+  .product-fav {
+    position: absolute; top: 10px; right: 10px;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .product-fav svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 1.8; }
+
+  .product-info { padding: 1rem 1rem 1.1rem; }
+  .product-info h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .product-info .cat { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+  .product-info .price-row {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .product-info .price { font-size: 1rem; font-weight: 700; }
+  .product-info .old-price { font-size: 0.78rem; color: var(--text-muted); text-decoration: line-through; }
+
+  .btn-add {
+    padding: 0.38rem 0.9rem;
+    border-radius: 999px;
+    background: var(--olive);
+    color: #fff;
+    font-size: 0.72rem; font-weight: 600;
+    border: none; cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .btn-add:hover { background: var(--olive-light); }
+
+  /* ══════════════════════════════════════════
+     CATEGORY PAGE
+  ══════════════════════════════════════════ */
+  #category { min-height: 100vh; }
+
+  .cat-hero {
+    height: 100vh;
+    position: relative;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .cat-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80');
+  }
+  .cat-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(10,14,10,0.55) 0%,
+      rgba(10,14,10,0.3) 30%,
+      rgba(10,14,10,0.85) 100%
+    );
+  }
+
+  .cat-layout {
+    position: relative; z-index: 2;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    width: 100%;
+    height: 100vh;
+    padding-top: var(--nav-h);
+  }
+
+  /* Sidebar */
+  .cat-sidebar {
+    padding: 2.5rem 1.5rem 2.5rem 2.5rem;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .cat-sidebar h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+  }
+  .cat-sidebar .tagline {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .cat-menu { display: flex; flex-direction: column; gap: 0.15rem; }
+  .cat-menu-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+    transition: all 0.2s;
+    background: transparent;
+    border: none; width: 100%;
+    text-align: left; font-family: inherit;
+  }
+  .cat-menu-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+  .cat-menu-item.active {
+    color: #fff;
+    background: var(--olive);
+  }
+  .cat-menu-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
+
+  /* Cards area */
+  .cat-cards-area {
+    padding: 0 2rem 2.5rem 1rem;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .cat-cards-subtitle {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    padding-left: 0.2rem;
+  }
+  .cat-cards-title {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+
+  .cat-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .cat-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s, border-color 0.3s;
+    height: 220px;
+  }
+  .cat-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.18); }
+
+  .cat-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  .cat-card:hover img { transform: scale(1.08); }
+
+  .cat-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  .cat-card-footer {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 0.9rem 1rem;
+    z-index: 2;
+    display: flex; align-items: flex-end; justify-content: space-between;
+  }
+
+  .cat-card-info { display: flex; align-items: center; gap: 0.5rem; }
+  .cat-card-info svg { width: 14px; height: 14px; stroke: rgba(255,255,255,0.7); fill: none; stroke-width: 1.8; flex-shrink: 0; }
+  .cat-card-text h4 { font-size: 0.88rem; font-weight: 600; line-height: 1.2; }
+  .cat-card-text span { font-size: 0.7rem; color: var(--text-muted); }
+
+  .cat-card-arrow {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--olive);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .cat-card-arrow:hover { background: var(--olive-light); }
+  .cat-card-arrow svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 2.5; }
+
+  /* ══════════════════════════════════════════
+     ABOUT PAGE
+  ══════════════════════════════════════════ */
+  #about { min-height: 100vh; padding-top: var(--nav-h); }
+
+  .about-hero {
+    padding: 5rem 3rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    min-height: calc(100vh - var(--nav-h));
+  }
+
+  .about-text h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .about-text h1 em {
+    font-style: italic;
+    color: var(--olive-light);
+    font-family: 'Playfair Display', serif;
+  }
+  .about-text p {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  .stat-box {
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.03);
+  }
+  .stat-box .num {
+    font-size: 2rem; font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-box .num span { color: var(--olive-light); }
+  .stat-box .lbl { font-size: 0.78rem; color: var(--text-muted); }
+
+  .about-imgs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 200px;
+    gap: 1rem;
+  }
+  .about-img {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .about-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  .about-img:hover img { transform: scale(1.06); }
+  .about-img:first-child {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+
+  /* Team */
+  .team-section {
+    padding: 4rem 3rem 6rem;
+    background: var(--dark);
+  }
+  .team-section h2 {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .team-section .sub { font-size: 0.83rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+
+  .team-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.03);
+    text-align: center;
+    padding-bottom: 1.3rem;
+    transition: transform 0.3s;
+  }
+  .team-card:hover { transform: translateY(-4px); }
+  .team-card-img { height: 180px; overflow: hidden; }
+  .team-card-img img { width: 100%; height: 100%; object-fit: cover; }
+  .team-card h4 { font-size: 0.93rem; font-weight: 600; margin: 1rem 0 0.25rem; }
+  .team-card span { font-size: 0.75rem; color: var(--olive-light); }
+
+  /* ─── Values ─── */
+  .values-section {
+    padding: 5rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .values-section h2 {
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .values-list { display: flex; flex-direction: column; gap: 1.3rem; }
+  .value-item {
+    display: flex; gap: 1.2rem;
+    padding: 1.3rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--card-border);
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.25s;
+  }
+  .value-item:hover { border-color: rgba(255,255,255,0.12); }
+  .value-num {
+    font-size: 1.6rem; font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 2rem;
+  }
+  .value-text h4 { font-size: 0.93rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .value-text p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--card-border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--darker);
+  }
+  footer .logo-text {
+    font-size: 1.2rem; font-weight: 800; letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.5);
+  }
+  footer p { font-size: 0.78rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <div class="nav-left">
+    <div class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links">
+      <a class="active" onclick="showPage('home',this)">Home</a>
+      <a onclick="showPage('category',this)">Category</a>
+      <a onclick="showPage('about',this)">About Us</a>
+    </div>
+  </div>
+
+  <div class="nav-logo">
+    <img src="C:\Users\Agar\Desktop\Website\logo1.png" alt="AGAR Furniture Store">
+  </div>
+
+  <div class="nav-right">
+    <div class="nav-customers">
+      <div class="avatars">
+        <span>A</span><span>B</span><span>C</span>
+      </div>
+      15k Customers
+    </div>
+    <div class="nav-icon-btn">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </div>
+    <div class="nav-icon-btn">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div id="home" class="page active">
+
+  <section class="hero">
+    <div class="hero-slides">
+      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1800&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1800&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80')"></div>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-subtitle">Discover timeless pieces for every room in your Home</p>
+      <h1 class="hero-title">Find the Perfect Balance of Comfort and Style with <strong>Our Curated Collection.</strong></h1>
+      <div class="slide-counter">
+        <span class="num" id="slideNum">01</span>
+        <div class="line"><div id="slideLine" style="width:25%;background:rgba(255,255,255,0.6);height:100%;transition:width 0.5s;"></div></div>
+        <span class="num">04</span>
+      </div>
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="hero-thumb-strip">
+      <img class="hero-thumb active" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=70" onclick="goSlide(0)" alt="">
+      <img class="hero-thumb" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=70" onclick="goSlide(1)" alt="">
+      <img class="hero-thumb" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=200&q=70" onclick="goSlide(2)" alt="">
+      <img class="hero-thumb" src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=200&q=70" onclick="goSlide(3)" alt="">
+    </div>
+
+    <!-- Info card -->
+    <div class="hero-card">
+      <img class="hero-card-img" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&q=75" alt="Sofa">
+      <div class="hero-card-body">
+        <h3>High-Quality Furniture</h3>
+        <p>Discover timeless pieces for every room in your Home</p>
+        <div class="card-actions">
+          <button class="btn-shop" onclick="showPage('category', document.querySelectorAll('.nav-links a')[1])">Shop Now</button>
+          <button class="btn-heart">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-arrows">
+      <button class="arrow-btn" onclick="prevSlide()">
+        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="arrow-btn" onclick="nextSlide()">
+        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features-section">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Premium Quality</h3>
+      <p>Every piece is crafted from the finest materials, ensuring durability and lasting beauty.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <h3>Fast Delivery</h3>
+      <p>White-glove delivery service directly to your room of choice, fully assembled.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"/></svg>
+      </div>
+      <h3>Expert Advice</h3>
+      <p>Our interior design consultants help you find the perfect fit for your space and taste.</p>
+    </div>
+  </section>
+
+  <!-- Best Sellers -->
+  <div style="background:var(--dark)">
+    <div class="section-header">
+      <h2>Best <span>Sellers</span></h2>
+      <a onclick="showPage('category', document.querySelectorAll('.nav-links a')[1])">View All →</a>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75" alt="Sofa">
+          <div class="product-badge">New</div>
+          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="product-info">
+          <h4>Nordic Comfort Sofa</h4>
+          <div class="cat">Living Room</div>
+          <div class="price-row">
+            <div><span class="price">$1,299</span> <span class="old-price">$1,599</span></div>
+            <button class="btn-add">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=75" alt="Bedroom">
+          <div class="product-badge">Sale</div>
+          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="product-info">
+          <h4>Velvet Bed Frame</h4>
+          <div class="cat">Bedroom</div>
+          <div class="price-row">
+            <div><span class="price">$899</span> <span class="old-price">$1,150</span></div>
+            <button class="btn-add">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=75" alt="Dining">
+          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="product-info">
+          <h4>Walnut Dining Table</h4>
+          <div class="cat">Dining Room</div>
+          <div class="price-row">
+            <div><span class="price">$2,100</span></div>
+            <button class="btn-add">Add</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?w=600&q=75" alt="Office">
+          <div class="product-badge">Hot</div>
+          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+        </div>
+        <div class="product-info">
+          <h4>Ergonomic Office Chair</h4>
+          <div class="cat">Office</div>
+          <div class="price-row">
+            <div><span class="price">$549</span> <span class="old-price">$699</span></div>
+            <button class="btn-add">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="logo-text">AGAR</div>
+    <p>© 2025 AGAR Furniture Store. All rights reserved.</p>
+  </footer>
+</div>
+
+<!-- ══════════════ CATEGORY ══════════════ -->
+<div id="category" class="page">
+
+  <section class="cat-hero">
+    <div class="cat-bg"></div>
+
+    <div class="cat-layout">
+      <div class="cat-sidebar">
+        <p class="hero-subtitle" style="margin-bottom:0.4rem;">Explore Our</p>
+        <h1>Furniture<br>Categories.</h1>
+        <p class="tagline">Timeless pieces, thoughtfully<br>curated for every room.</p>
+
+        <div class="cat-menu">
+          <button class="cat-menu-item active" onclick="filterCat('all',this)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            All Categories
+          </button>
+          <button class="cat-menu-item" onclick="filterCat('living',this)">
+            <svg viewBox="0 0 24 24"><path d="M20 9V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4"/><path d="M4 9h16a1 1 0 0 1 1 1v5H3v-5a1 1 0 0 1 1-1z"/><path d="M3 15v4h3m12 0v-4"/></svg>
+            Living Room
+          </button>
+          <button class="cat-menu-item" onclick="filterCat('bedroom',this)">
+            <svg viewBox="0 0 24 24"><path d="M2 4v16M22 4v16M2 12h20M7 12V8a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4"/></svg>
+            Bedroom
+          </button>
+          <button class="cat-menu-item" onclick="filterCat('dining',this)">
+            <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+            Dining Room
+          </button>
+          <button class="cat-menu-item" onclick="filterCat('kitchen',this)">
+            <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v11H3z"/></svg>
+            Kitchen
+          </button>
+          <button class="cat-menu-item" onclick="filterCat('office',this)">
+            <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10h20V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+            Office
+          </button>
+          <button class="cat-menu-item" onclick="filterCat('lighting',this)">
+            <svg viewBox="0 0 24 24"><path d="M9 18h6M12 2v1M12 21v-3M4.22 4.22l.7.7M19.07 4.92l-.7.7M1 12h1M22 12h1M4.92 19.07l.7-.7M18.36 18.36l.7.7"/><circle cx="12" cy="12" r="4"/></svg>
+            Lighting
+          </button>
+          <button class="cat-menu-item" onclick="filterCat('decor',this)">
+            <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 2-2 4-4 8-2-4-4-6-4-8a4 4 0 0 1 4-4z"/><path d="M8 18h8l1 4H7l1-4z"/></svg>
+            Decor
+          </button>
+        </div>
+      </div>
+
+      <div class="cat-cards-area">
+        <p class="cat-cards-subtitle">Browse by Space</p>
+        <h2 class="cat-cards-title">Explore Our<br><strong>Furniture Categories.</strong></h2>
+
+        <div class="cat-cards-grid" id="catGrid">
+          <div class="cat-card" data-cat="living">
+            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75" alt="Living Room">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><path d="M20 9V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4"/><path d="M4 9h16a1 1 0 0 1 1 1v5H3v-5a1 1 0 0 1 1-1z"/></svg>
+                <div class="cat-card-text">
+                  <h4>Living Room</h4>
+                  <span>120 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="cat-card" data-cat="bedroom">
+            <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=75" alt="Bedroom">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><path d="M2 4v16M22 4v16M2 12h20"/></svg>
+                <div class="cat-card-text">
+                  <h4>Bedroom</h4>
+                  <span>95 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="cat-card" data-cat="dining">
+            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=75" alt="Dining">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+                <div class="cat-card-text">
+                  <h4>Dining Room</h4>
+                  <span>80 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="cat-card" data-cat="kitchen">
+            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=75" alt="Kitchen">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v11H3z"/></svg>
+                <div class="cat-card-text">
+                  <h4>Kitchen</h4>
+                  <span>60 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="cat-card" data-cat="office">
+            <img src="https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?w=600&q=75" alt="Office">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10h20V9a2 2 0 0 0-2-2z"/></svg>
+                <div class="cat-card-text">
+                  <h4>Office</h4>
+                  <span>45 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="cat-card" data-cat="lighting">
+            <img src="https://images.unsplash.com/photo-1513506003901-1e6a35fd4d5c?w=600&q=75" alt="Lighting">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v1M12 21v1M4.22 4.22l.7.7M19.07 4.92l-.7.7"/></svg>
+                <div class="cat-card-text">
+                  <h4>Lighting</h4>
+                  <span>70 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="cat-card" data-cat="decor">
+            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=75" alt="Decor">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 2-2 4-4 8-2-4-4-6-4-8a4 4 0 0 1 4-4z"/></svg>
+                <div class="cat-card-text">
+                  <h4>Decor</h4>
+                  <span>110 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+
+          <div class="cat-card" data-cat="outdoor" style="display:none">
+            <img src="https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=600&q=75" alt="Outdoor">
+            <div class="cat-card-footer">
+              <div class="cat-card-info">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                <div class="cat-card-text">
+                  <h4>Outdoor</h4>
+                  <span>35 Items</span>
+                </div>
+              </div>
+              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo-text">AGAR</div>
+    <p>© 2025 AGAR Furniture Store. All rights reserved.</p>
+  </footer>
+</div>
+
+<!-- ══════════════ ABOUT ══════════════ -->
+<div id="about" class="page">
+
+  <section class="about-hero">
+    <div class="about-text">
+      <h1>Crafting Spaces,<br><em>Inspiring Lives</em><br>Since 2010</h1>
+      <p>AGAR was founded on a simple belief: that great furniture doesn't just fill a room — it defines how you live in it. Every piece in our collection is chosen with intention, blending form, function, and lasting quality.</p>
+      <p>From our flagship showroom in Cairo to homes across the region, we've helped over 15,000 customers transform their spaces into places they love coming home to.</p>
+      <div class="about-stats">
+        <div class="stat-box"><div class="num">15<span>k+</span></div><div class="lbl">Happy Customers</div></div>
+        <div class="stat-box"><div class="num">580<span>+</span></div><div class="lbl">Products</div></div>
+        <div class="stat-box"><div class="num">14<span>y</span></div><div class="lbl">Years of Experience</div></div>
+        <div class="stat-box"><div class="num">7<span></span></div><div class="lbl">Showrooms</div></div>
+      </div>
+    </div>
+
+    <div class="about-imgs">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=75" alt="Showroom">
+      </div>
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=500&q=75" alt="Dining">
+      </div>
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&q=75" alt="Kitchen">
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team-section">
+    <h2>Meet Our Team</h2>
+    <p class="sub">The people behind AGAR's vision and craftsmanship</p>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=75" alt="CEO">
+        </div>
+        <h4>Ahmed Hassan</h4>
+        <span>Founder & CEO</span>
+      </div>
+      <div class="team-card">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=75" alt="Designer">
+        </div>
+        <h4>Sara El-Masry</h4>
+        <span>Head of Design</span>
+      </div>
+      <div class="team-card">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&q=75" alt="Sales">
+        </div>
+        <h4>Karim Nour</h4>
+        <span>Sales Director</span>
+      </div>
+      <div class="team-card">
+        <div class="team-card-img">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=75" alt="Operations">
+        </div>
+        <h4>Nada Farouk</h4>
+        <span>Operations Manager</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section">
+    <h2>What We<br>Stand For</h2>
+    <div class="values-list">
+      <div class="value-item">
+        <div class="value-num">01</div>
+        <div class="value-text">
+          <h4>Uncompromising Quality</h4>
+          <p>We source from certified manufacturers and inspect every item before it reaches your home. No shortcuts — ever.</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-num">02</div>
+        <div class="value-text">
+          <h4>Timeless Design</h4>
+          <p>Trends come and go. We curate pieces that remain beautiful, functional, and relevant for decades.</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-num">03</div>
+        <div class="value-text">
+          <h4>Customer First</h4>
+          <p>From first browse to after-sale support, your satisfaction drives every decision we make.</p>
+        </div>
+      </div>
+      <div class="value-item">
+        <div class="value-num">04</div>
+        <div class="value-text">
+          <h4>Sustainable Sourcing</h4>
+          <p>We partner with suppliers who respect the environment, prioritising responsibly harvested wood and eco-friendly finishes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="logo-text">AGAR</div>
+    <p>© 2025 AGAR Furniture Store. All rights reserved.</p>
+  </footer>
+</div>
+
+<script>
+  /* ── Page navigation ── */
+  function showPage(id, linkEl) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    if (linkEl) linkEl.classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  /* ── Hero Slider ── */
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const thumbs  = document.querySelectorAll('.hero-thumb');
+  const nums    = ['01','02','03','04'];
+  const widths  = ['25%','50%','75%','100%'];
+
+  function goSlide(n) {
+    slides[currentSlide].classList.remove('active');
+    thumbs[currentSlide].classList.remove('active');
+    currentSlide = n;
+    slides[currentSlide].classList.add('active');
+    thumbs[currentSlide].classList.add('active');
+    document.getElementById('slideNum').textContent = nums[currentSlide];
+    document.getElementById('slideLine').style.width = widths[currentSlide];
+  }
+
+  function nextSlide() { goSlide((currentSlide + 1) % slides.length); }
+  function prevSlide() { goSlide((currentSlide - 1 + slides.length) % slides.length); }
+
+  let autoSlide = setInterval(nextSlide, 4500);
+  document.querySelectorAll('.arrow-btn').forEach(b => {
+    b.addEventListener('click', () => { clearInterval(autoSlide); autoSlide = setInterval(nextSlide, 4500); });
+  });
+
+  /* ── Category filter ── */
+  function filterCat(cat, btn) {
+    document.querySelectorAll('.cat-menu-item').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.cat-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
