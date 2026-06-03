@@ -292,14 +292,7 @@
   }
   .btn-shop:hover { background: #fff; }
 
-  .btn-heart {
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: transparent;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-  }
+ 
   .btn-heart svg { width: 14px; height: 14px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 1.8; }
 
   /* Thumbnail strip */
@@ -422,24 +415,9 @@
   }
   .product-card:hover .product-img-wrap img { transform: scale(1.07); }
 
-  .product-badge {
-    position: absolute; top: 10px; left: 10px;
-    padding: 3px 10px;
-    border-radius: 999px;
-    font-size: 0.68rem; font-weight: 600;
-    background: var(--olive);
-    color: #fff;
-    letter-spacing: 0.04em;
-  }
+  
 
-  .product-fav {
-    position: absolute; top: 10px; right: 10px;
-    width: 30px; height: 30px; border-radius: 50%;
-    background: rgba(0,0,0,0.4);
-    border: 1px solid rgba(255,255,255,0.15);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-  }
+ 
   .product-fav svg { width: 14px; height: 14px; stroke: #fff; fill: none; stroke-width: 1.8; }
 
   .product-info { padding: 1rem 1rem 1.1rem; }
@@ -451,16 +429,7 @@
   .product-info .price { font-size: 1rem; font-weight: 700; }
   .product-info .old-price { font-size: 0.78rem; color: var(--text-muted); text-decoration: line-through; }
 
-  .btn-add {
-    padding: 0.38rem 0.9rem;
-    border-radius: 999px;
-    background: var(--olive);
-    color: #fff;
-    font-size: 0.72rem; font-weight: 600;
-    border: none; cursor: pointer;
-    font-family: inherit;
-    transition: background 0.2s;
-  }
+ 
   .btn-add:hover { background: var(--olive-light); }
 
   /* ══════════════════════════════════════════
@@ -845,9 +814,7 @@
         <p>Discover timeless pieces for every room in your Home</p>
         <div class="card-actions">
           <button class="btn-shop" onclick="showPage('category', document.querySelectorAll('.nav-links a')[1])">Shop Now</button>
-          <button class="btn-heart">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          </button>
+          
         </div>
       </div>
     </div>
@@ -890,7 +857,7 @@
   <!-- Best Sellers -->
   <div style="background:var(--dark)">
     <div class="section-header">
-      <h2>Best <span>Sellers</span></h2>
+      <h2> <em>Elegant<em> <span><em>Designs</em></span></h2>
       <a onclick="showPage('category', document.querySelectorAll('.nav-links a')[1])">View All →</a>
     </div>
 
@@ -898,63 +865,49 @@
       <div class="product-card">
         <div class="product-img-wrap">
           <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75" alt="Sofa">
-          <div class="product-badge">New</div>
-          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          
+          
         </div>
         <div class="product-info">
           <h4>Nordic Comfort Sofa</h4>
           <div class="cat">Living Room</div>
-          <div class="price-row">
-            <div><span class="price">$1,299</span> <span class="old-price">$1,599</span></div>
-            <button class="btn-add">Add</button>
-          </div>
+         
         </div>
       </div>
 
       <div class="product-card">
         <div class="product-img-wrap">
           <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=75" alt="Bedroom">
-          <div class="product-badge">Sale</div>
-          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          
         </div>
         <div class="product-info">
           <h4>Velvet Bed Frame</h4>
           <div class="cat">Bedroom</div>
-          <div class="price-row">
-            <div><span class="price">$899</span> <span class="old-price">$1,150</span></div>
-            <button class="btn-add">Add</button>
-          </div>
+         
         </div>
       </div>
 
       <div class="product-card">
         <div class="product-img-wrap">
           <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=75" alt="Dining">
-          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+         
         </div>
         <div class="product-info">
           <h4>Walnut Dining Table</h4>
           <div class="cat">Dining Room</div>
-          <div class="price-row">
-            <div><span class="price">$2,100</span></div>
-            <button class="btn-add">Add</button>
-          </div>
+         
         </div>
       </div>
 
       <div class="product-card">
         <div class="product-img-wrap">
           <img src="https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?w=600&q=75" alt="Office">
-          <div class="product-badge">Hot</div>
-          <button class="product-fav"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+         
         </div>
         <div class="product-info">
           <h4>Ergonomic Office Chair</h4>
           <div class="cat">Office</div>
-          <div class="price-row">
-            <div><span class="price">$549</span> <span class="old-price">$699</span></div>
-            <button class="btn-add">Add</button>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -1179,7 +1132,7 @@
         <div class="team-card-img">
           <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&q=75" alt="CEO">
         </div>
-        <h4>Ahmed Hassan</h4>
+        <h4>Shehab Sayed</h4>
         <span>Founder & CEO</span>
       </div>
       <div class="team-card">
