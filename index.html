@@ -24,14 +24,9 @@
     --nav-h: 74px;
   }
 
-  html { scroll-behavior: smooth; }
+ html { scroll-behavior: auto; }
 
-  body {
-    font-family: 'Outfit', sans-serif;
-    background: var(--darker);
-    color: #fff;
-    overflow-x: hidden;
-  }
+  
 
   /* ─── SCROLLBAR ─── */
   ::-webkit-scrollbar { width: 6px; }
@@ -39,8 +34,15 @@
   ::-webkit-scrollbar-thumb { background: var(--olive); border-radius: 99px; }
 
   /* ─── PAGE WRAPPER ─── */
-  .page { display: none; }
-  .page.active { display: block; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--darker);
+  color: #fff;
+  overflow-x: hidden;
+}
+
+.page { display: none !important; }
+.page.active { display: block !important; }
 
   /* ══════════════════════════════════════════
      NAV
@@ -101,14 +103,14 @@
     position: absolute; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center;
   }
-  .nav-logo img {
-    height: 38px; width: auto;
+  .nav-logo img { 
+    height: 53px; width: auto;
     object-fit: contain;
   }
 
   .nav-right {
     margin-left: auto;
-    display: flex; align-items: center; gap: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
   }
 
   .nav-customers {
@@ -139,15 +141,24 @@
   .avatars span img { width: 100%; height: 100%; object-fit: cover; }
 
   .nav-icon-btn {
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid var(--card-border);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer; transition: background 0.2s;
-  }
-  .nav-icon-btn:hover { background: rgba(255,255,255,0.12); }
-  .nav-icon-btn svg { width: 17px; height: 17px; stroke: rgba(255,255,255,0.75); fill: none; stroke-width: 1.8; }
-
+  width: 36px; 
+  height: 36px; 
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s;
+  text-decoration: none;
+  color: rgba(255,255,255,0.75);
+}
+.nav-icon-btn:hover { 
+  opacity: 0.85;
+  transform: scale(1.08);
+}
+.nav-icon-btn svg { 
+    width: 22px; 
+    height: 22px; 
+}
   /* ══════════════════════════════════════════
      HOME PAGE
   ══════════════════════════════════════════ */
@@ -296,13 +307,13 @@
   .btn-heart svg { width: 14px; height: 14px; stroke: rgba(255,255,255,0.6); fill: none; stroke-width: 1.8; }
 
   /* Thumbnail strip */
-  .hero-thumb-strip {
-    position: absolute;
-    right: calc(300px + 4.5rem);
-    bottom: 10%;
-    z-index: 3;
-    display: flex; flex-direction: column; gap: 0;
-  }
+.hero-thumb-strip {
+  position: absolute;
+  right: 3rem;          /* ← غير من calc(300px + 4.5rem) */
+  top: calc(var(--nav-h) + 2rem);
+  z-index: 3;
+  display: flex; flex-direction: column; gap: 0;
+}
   .hero-thumb {
     width: 80px; height: 84px;
     object-fit: cover;
@@ -317,11 +328,12 @@
 
   /* Nav arrows */
   .hero-arrows {
-    position: absolute;
-    bottom: 2.5rem; right: 3rem;
-    z-index: 4;
-    display: flex; gap: 0.5rem;
-  }
+  position: absolute;
+  bottom: 1.0rem;
+  right: 3rem;          /* سيبها زي ما هي */
+  z-index: 4;
+  display: flex; gap: 0.5rem;
+}
   .arrow-btn {
     width: 38px; height: 38px; border-radius: 50%;
     background: rgba(255,255,255,0.1);
@@ -363,6 +375,8 @@
   .feature-icon svg { width: 22px; height: 22px; stroke: #8fb98f; fill: none; stroke-width: 1.8; }
   .feature-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
   .feature-card p  { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+
+
 
   /* ─── SECTION: Best Sellers ─── */
   .section-header {
@@ -471,9 +485,9 @@
 
   /* Sidebar */
   .cat-sidebar {
-    padding: 2.5rem 1.5rem 2.5rem 2.5rem;
+    padding: 0.5rem 1.5rem 5rem 2.5rem;
     display: flex; flex-direction: column;
-    justify-content: flex-end;
+    
   }
 
   .cat-sidebar h1 {
@@ -511,22 +525,30 @@
   .cat-menu-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.8; flex-shrink: 0; }
 
   /* Cards area */
-  .cat-cards-area {
-    padding: 0 2rem 2.5rem 1rem;
-    display: flex; flex-direction: column;
-    justify-content: flex-end;
-  }
+ .cat-cards-area {
+  overflow-y: auto;
+  padding: 0 2rem 2.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+#level1, #level2, #level3 {
+  margin-top: auto;
+}
+
 
   .cat-cards-subtitle {
     font-size: 0.78rem;
     color: var(--text-muted);
     margin-bottom: 0.4rem;
     padding-left: 0.2rem;
+    margin-top: 0.5rem;
   }
   .cat-cards-title {
     font-size: clamp(1.8rem, 3vw, 2.8rem);
     font-weight: 800; letter-spacing: -0.02em;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   .cat-cards-grid {
@@ -589,7 +611,7 @@
   #about { min-height: 100vh; padding-top: var(--nav-h); }
 
   .about-hero {
-    padding: 5rem 3rem 4rem;
+    padding: 1.5rem 3rem 4rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
@@ -740,6 +762,101 @@
     color: rgba(255,255,255,0.5);
   }
   footer p { font-size: 0.78rem; color: var(--text-muted); }
+  
+
+
+  .back-btn {
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.82rem; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .back-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+ 
+  /* Folder cards – نفس شكل cat-card بس أصغر */
+  .folder-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid var(--card-border);
+    transition: transform 0.3s, border-color 0.3s;
+    height: 180px;
+    animation: fadeInUp 0.35s ease both;
+  }
+  .folder-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.18); }
+  .folder-card img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s; }
+  .folder-card:hover img { transform: scale(1.08); }
+  .folder-card::after {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 55%);
+    pointer-events:none;
+  }
+  .folder-card-footer {
+    position:absolute; bottom:0; left:0; right:0;
+    padding: 0.75rem 0.9rem; z-index:2;
+    display:flex; align-items:flex-end; justify-content:space-between;
+  }
+  .folder-card-footer h4 { font-size:0.85rem; font-weight:600; line-height:1.2; }
+  .folder-card-footer span { font-size:0.7rem; color:var(--text-muted); }
+  .folder-card-arrow {
+    width:28px; height:28px; border-radius:50%;
+    background:var(--olive); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; transition:background 0.2s;
+  }
+  .folder-card-arrow:hover { background:var(--olive-light); }
+  .folder-card-arrow svg { width:11px; height:11px; stroke:#fff; fill:none; stroke-width:2.5; }
+ 
+  /* Items grid */
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .item-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    cursor: pointer;
+    height: 160px;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+    animation: fadeInUp 0.35s ease both;
+  }
+  .item-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.18); }
+  .item-card img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s; }
+  .item-card:hover img { transform: scale(1.08); }
+  .item-card::after {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    pointer-events:none;
+  }
+  .item-card-label {
+    position:absolute; bottom:0; left:0; right:0;
+    padding: 0.6rem 0.75rem; z-index:2;
+    font-size:0.78rem; font-weight:600; line-height:1.2;
+  }
+ 
+  .lb-arrow {
+    width:48px; height:48px; border-radius:50%;
+    background:rgba(255,255,255,0.1);
+    border:1px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:background 0.2s; flex-shrink:0;
+  }
+  .lb-arrow:hover { background:rgba(255,255,255,0.2); }
+ 
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(16px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
 </style>
 </head>
 <body>
@@ -758,23 +875,42 @@
   </div>
 
   <div class="nav-logo">
-    <img src="C:\Users\Agar\Desktop\Website\logo1.png" alt="AGAR Furniture Store">
+    <img src="logo1.png" alt="AGAR Furniture Store">
   </div>
 
   <div class="nav-right">
-    <div class="nav-customers">
-      <div class="avatars">
-        <span>A</span><span>B</span><span>C</span>
-      </div>
-      15k Customers
-    </div>
-    <div class="nav-icon-btn">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    </div>
-    <div class="nav-icon-btn">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    </div>
-  </div>
+  <!-- Facebook -->
+  <a href="https://web.facebook.com/agarfurniturestore" target="_blank" class="nav-icon-btn">
+    <svg viewBox="0 0 24 24" fill="white" stroke="none" width="18" height="18">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+    </svg>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/agarfurniturestore" target="_blank" class="nav-icon-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/>
+    </svg>
+  </a>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/201113068384" target="_blank" class="nav-icon-btn">
+    <svg viewBox="0 0 24 24" fill="white" stroke="none" width="18" height="18">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.845L.057 23.737a.75.75 0 0 0 .921.921l5.892-1.471A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.66-.518-5.17-1.418l-.37-.221-3.84.96.96-3.84-.221-.37A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+  </a>
+
+  <!-- Location -->
+  <a href="https://www.google.com/maps/@30.0259728,31.4645292,62m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI2MDYwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="nav-icon-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+  </a>
+</div>
 </nav>
 
 <!-- ══════════════ HOME ══════════════ -->
@@ -782,10 +918,10 @@
 
   <section class="hero">
     <div class="hero-slides">
-      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80')"></div>
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1800&q=80')"></div>
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1800&q=80')"></div>
-      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=1800&q=80')"></div>
+      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1602028915047-37269d1a73f7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1588854337236-6889d631faa8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1682662045815-9016c6225dd3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1600122272511-c85c3a0209f9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
     </div>
 
     <div class="hero-content">
@@ -800,15 +936,15 @@
 
     <!-- Thumbnail strip -->
     <div class="hero-thumb-strip">
-      <img class="hero-thumb active" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=70" onclick="goSlide(0)" alt="">
-      <img class="hero-thumb" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=70" onclick="goSlide(1)" alt="">
-      <img class="hero-thumb" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=200&q=70" onclick="goSlide(2)" alt="">
-      <img class="hero-thumb" src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=200&q=70" onclick="goSlide(3)" alt="">
+      <img class="hero-thumb active" src="https://images.unsplash.com/photo-1602028915047-37269d1a73f7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onclick="goSlide(0)" alt="">
+      <img class="hero-thumb" src="https://images.unsplash.com/photo-1588854337236-6889d631faa8?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onclick="goSlide(1)" alt="">
+      <img class="hero-thumb" src="https://images.unsplash.com/photo-1682662045815-9016c6225dd3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onclick="goSlide(2)" alt="">
+      <img class="hero-thumb" src="https://images.unsplash.com/photo-1600122272511-c85c3a0209f9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" onclick="goSlide(3)" alt="">
     </div>
 
     <!-- Info card -->
     <div class="hero-card">
-      <img class="hero-card-img" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&q=75" alt="Sofa">
+      <img class="hero-card-img" src="https://images.unsplash.com/photo-1602028915047-37269d1a73f7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sofa">
       <div class="hero-card-body">
         <h3>High-Quality Furniture</h3>
         <p>Discover timeless pieces for every room in your Home</p>
@@ -843,7 +979,7 @@
         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
       <h3>Fast Delivery</h3>
-      <p>White-glove delivery service directly to your room of choice, fully assembled.</p>
+      <p>We provide fast and reliable delivery services, ensuring your furniture arrives on time and in perfect condition.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">
@@ -919,175 +1055,216 @@
   </footer>
 </div>
 
-<!-- ══════════════ CATEGORY ══════════════ -->
-<div id="category" class="page">
 
+<!-- ══════════════ CATEGORY PAGE - استبدل محتوى div#category بالكود ده ══════════════ -->
+<div id="category" class="page">
+ 
   <section class="cat-hero">
     <div class="cat-bg"></div>
-
+ 
     <div class="cat-layout">
+      <!-- Sidebar -->
       <div class="cat-sidebar">
         <p class="hero-subtitle" style="margin-bottom:0.4rem;">Explore Our</p>
         <h1>Furniture<br>Categories.</h1>
         <p class="tagline">Timeless pieces, thoughtfully<br>curated for every room.</p>
-
+ 
         <div class="cat-menu">
-          <button class="cat-menu-item active" onclick="filterCat('all',this)">
+          <button class="cat-menu-item active" onclick="selectCategory('all',this)">
             <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             All Categories
           </button>
-          <button class="cat-menu-item" onclick="filterCat('living',this)">
+          <button class="cat-menu-item" onclick="selectCategory('living',this)">
             <svg viewBox="0 0 24 24"><path d="M20 9V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4"/><path d="M4 9h16a1 1 0 0 1 1 1v5H3v-5a1 1 0 0 1 1-1z"/><path d="M3 15v4h3m12 0v-4"/></svg>
             Living Room
           </button>
-          <button class="cat-menu-item" onclick="filterCat('bedroom',this)">
+          <button class="cat-menu-item" onclick="selectCategory('bedroom',this)">
             <svg viewBox="0 0 24 24"><path d="M2 4v16M22 4v16M2 12h20M7 12V8a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4"/></svg>
             Bedroom
           </button>
-          <button class="cat-menu-item" onclick="filterCat('dining',this)">
+          <button class="cat-menu-item" onclick="selectCategory('dining',this)">
             <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
             Dining Room
           </button>
-          <button class="cat-menu-item" onclick="filterCat('kitchen',this)">
+          <button class="cat-menu-item" onclick="selectCategory('kitchen',this)">
             <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v11H3z"/></svg>
             Kitchen
           </button>
-          <button class="cat-menu-item" onclick="filterCat('office',this)">
+          <button class="cat-menu-item" onclick="selectCategory('office',this)">
             <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10h20V9a2 2 0 0 0-2-2z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
             Office
           </button>
-          <button class="cat-menu-item" onclick="filterCat('lighting',this)">
+          <button class="cat-menu-item" onclick="selectCategory('lighting',this)">
             <svg viewBox="0 0 24 24"><path d="M9 18h6M12 2v1M12 21v-3M4.22 4.22l.7.7M19.07 4.92l-.7.7M1 12h1M22 12h1M4.92 19.07l.7-.7M18.36 18.36l.7.7"/><circle cx="12" cy="12" r="4"/></svg>
             Lighting
           </button>
-          <button class="cat-menu-item" onclick="filterCat('decor',this)">
+          <button class="cat-menu-item" onclick="selectCategory('decor',this)">
             <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 2-2 4-4 8-2-4-4-6-4-8a4 4 0 0 1 4-4z"/><path d="M8 18h8l1 4H7l1-4z"/></svg>
             Decor
           </button>
         </div>
       </div>
-
+ 
+      <!-- Cards + Folders Area -->
       <div class="cat-cards-area">
-        <p class="cat-cards-subtitle">Browse by Space</p>
-        <h2 class="cat-cards-title">Explore Our<br><strong>Furniture Categories.</strong></h2>
-
-        <div class="cat-cards-grid" id="catGrid">
-          <div class="cat-card" data-cat="living">
-            <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75" alt="Living Room">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><path d="M20 9V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4"/><path d="M4 9h16a1 1 0 0 1 1 1v5H3v-5a1 1 0 0 1 1-1z"/></svg>
-                <div class="cat-card-text">
-                  <h4>Living Room</h4>
-                  <span>120 Items</span>
+        <!-- Level 1: Category Cards -->
+        <div id="level1">
+          <p class="cat-cards-subtitle">Browse by Space</p>
+          <h2 class="cat-cards-title">Explore Our<br><strong>Furniture Categories.</strong></h2>
+          <div class="cat-cards-grid" id="catGrid">
+ 
+            <div class="cat-card" data-cat="living" onclick="openCategory('living')">
+              <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75" alt="Living Room">
+              <div class="cat-card-footer">
+                <div class="cat-card-info">
+                  <svg viewBox="0 0 24 24"><path d="M20 9V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v4"/><path d="M4 9h16a1 1 0 0 1 1 1v5H3v-5a1 1 0 0 1 1-1z"/></svg>
+                  <div class="cat-card-text"><h4>Living Room</h4><span>120 Items</span></div>
                 </div>
+                <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
               </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
-          </div>
-
-          <div class="cat-card" data-cat="bedroom">
-            <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=75" alt="Bedroom">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><path d="M2 4v16M22 4v16M2 12h20"/></svg>
-                <div class="cat-card-text">
-                  <h4>Bedroom</h4>
-                  <span>95 Items</span>
+ 
+            <div class="cat-card" data-cat="bedroom" onclick="openCategory('bedroom')">
+              <img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=75" alt="Bedroom">
+              <div class="cat-card-footer">
+                <div class="cat-card-info">
+                  <svg viewBox="0 0 24 24"><path d="M2 4v16M22 4v16M2 12h20"/></svg>
+                  <div class="cat-card-text"><h4>Bedroom</h4><span>95 Items</span></div>
                 </div>
+                <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
               </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
-          </div>
-
-          <div class="cat-card" data-cat="dining">
-            <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=75" alt="Dining">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
-                <div class="cat-card-text">
-                  <h4>Dining Room</h4>
-                  <span>80 Items</span>
+ 
+            <div class="cat-card" data-cat="dining" onclick="openCategory('dining')">
+              <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=75" alt="Dining">
+              <div class="cat-card-footer">
+                <div class="cat-card-info">
+                  <svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+                  <div class="cat-card-text"><h4>Dining Room</h4><span>80 Items</span></div>
                 </div>
+                <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
               </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
-          </div>
-
-          <div class="cat-card" data-cat="kitchen">
-            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=75" alt="Kitchen">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v11H3z"/></svg>
-                <div class="cat-card-text">
-                  <h4>Kitchen</h4>
-                  <span>60 Items</span>
+ 
+            <div class="cat-card" data-cat="kitchen" onclick="openCategory('kitchen')">
+              <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=75" alt="Kitchen">
+              <div class="cat-card-footer">
+                <div class="cat-card-info">
+                  <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v11H3z"/></svg>
+                  <div class="cat-card-text"><h4>Kitchen</h4><span>60 Items</span></div>
                 </div>
+                <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
               </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
-          </div>
-
-          <div class="cat-card" data-cat="office">
-            <img src="https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?w=600&q=75" alt="Office">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10h20V9a2 2 0 0 0-2-2z"/></svg>
-                <div class="cat-card-text">
-                  <h4>Office</h4>
-                  <span>45 Items</span>
+ 
+            <div class="cat-card" data-cat="office" onclick="openCategory('office')">
+              <img src="https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?w=600&q=75" alt="Office">
+              <div class="cat-card-footer">
+                <div class="cat-card-info">
+                  <svg viewBox="0 0 24 24"><path d="M20 7H4a2 2 0 0 0-2 2v10h20V9a2 2 0 0 0-2-2z"/></svg>
+                  <div class="cat-card-text"><h4>Office</h4><span>45 Items</span></div>
                 </div>
+                <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
               </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
-          </div>
-
-          <div class="cat-card" data-cat="lighting">
-            <img src="https://images.unsplash.com/photo-1513506003901-1e6a35fd4d5c?w=600&q=75" alt="Lighting">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v1M12 21v1M4.22 4.22l.7.7M19.07 4.92l-.7.7"/></svg>
-                <div class="cat-card-text">
-                  <h4>Lighting</h4>
-                  <span>70 Items</span>
+ 
+            <div class="cat-card" data-cat="lighting" onclick="openCategory('lighting')">
+              <img src="https://cdn.shopify.com/s/files/1/0575/4981/6001/files/FullSizeRender.jpg?v=1636625759" alt="Lighting">
+              <div class="cat-card-footer">
+                <div class="cat-card-info">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v1M12 21v1"/></svg>
+                  <div class="cat-card-text"><h4>Lighting</h4><span>70 Items</span></div>
                 </div>
+                <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
               </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
-          </div>
-
-          <div class="cat-card" data-cat="decor">
-            <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=75" alt="Decor">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 2-2 4-4 8-2-4-4-6-4-8a4 4 0 0 1 4-4z"/></svg>
-                <div class="cat-card-text">
-                  <h4>Decor</h4>
-                  <span>110 Items</span>
+ 
+            <div class="cat-card" data-cat="decor" onclick="openCategory('decor')">
+              <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=75" alt="Decor">
+              <div class="cat-card-footer">
+                <div class="cat-card-info">
+                  <svg viewBox="0 0 24 24"><path d="M12 2a4 4 0 0 1 4 4c0 2-2 4-4 8-2-4-4-6-4-8a4 4 0 0 1 4-4z"/></svg>
+                  <div class="cat-card-text"><h4>Decor</h4><span>110 Items</span></div>
                 </div>
+                <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
               </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
             </div>
-          </div>
-
-          <div class="cat-card" data-cat="outdoor" style="display:none">
-            <img src="https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=600&q=75" alt="Outdoor">
-            <div class="cat-card-footer">
-              <div class="cat-card-info">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                <div class="cat-card-text">
-                  <h4>Outdoor</h4>
-                  <span>35 Items</span>
-                </div>
-              </div>
-              <button class="cat-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-            </div>
+ 
           </div>
         </div>
-      </div>
+ 
+        <!-- Level 2: Folders inside a category -->
+        <div id="level2" style="display:none; opacity:0; transition: opacity 0.4s;">
+          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem;">
+            <button class="back-btn" onclick="goBack(1)">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+              Back
+            </button>
+            <p class="cat-cards-subtitle" style="margin:0;" id="level2-breadcrumb">Living Room</p>
+          </div>
+          <h2 class="cat-cards-title" id="level2-title">Choose a<br><strong>Collection.</strong></h2>
+          <div class="cat-cards-grid" id="folderGrid"></div>
+        </div>
+ 
+        <!-- Level 3: Images inside a folder -->
+        <div id="level3" style="display:none; opacity:0; transition: opacity 0.4s;">
+          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem;">
+            <button class="back-btn" onclick="goBack(2)">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+              Back
+            </button>
+            <p class="cat-cards-subtitle" style="margin:0;" id="level3-breadcrumb">Collection</p>
+          </div>
+          <h2 class="cat-cards-title" id="level3-title">Browse<br><strong>Items.</strong></h2>
+          <div class="items-grid" id="itemsGrid"></div>
+        </div>
+ 
+      </div><!-- end cat-cards-area -->
     </div>
   </section>
-
+ 
+  <!-- ── LIGHTBOX ── -->
+  <div id="lightbox" style="
+    display:none;
+    position:fixed; inset:0; z-index:999;
+    background:rgba(0,0,0,0.92);
+    align-items:center; justify-content:center;
+    flex-direction:column;
+  ">
+    <button onclick="closeLightbox()" style="
+      position:absolute; top:1.5rem; right:1.5rem;
+      background:rgba(255,255,255,0.12); border:none; border-radius:50%;
+      width:42px; height:42px; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    ">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="white" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+ 
+    <div style="display:flex; align-items:center; gap:1.5rem;">
+      <button onclick="lightboxPrev()" class="lb-arrow">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="white" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+ 
+      <div style="position:relative;">
+        <img id="lb-img" src="" alt="" style="
+          max-width:70vw; max-height:75vh;
+          border-radius:12px; object-fit:contain;
+          transition: opacity 0.25s;
+        ">
+        <div id="lb-counter" style="
+          position:absolute; bottom:-2rem; left:50%; transform:translateX(-50%);
+          font-size:0.82rem; color:rgba(255,255,255,0.5); white-space:nowrap;
+        "></div>
+      </div>
+ 
+      <button onclick="lightboxNext()" class="lb-arrow">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="white" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+ 
+    <p id="lb-title" style="margin-top:3rem; font-size:0.95rem; color:rgba(255,255,255,0.75); font-weight:500;"></p>
+  </div>
+ 
   <footer>
     <div class="logo-text">AGAR</div>
     <p>© 2025 AGAR Furniture Store. All rights reserved.</p>
@@ -1202,13 +1379,26 @@
 
 <script>
   /* ── Page navigation ── */
-  function showPage(id, linkEl) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-    if (linkEl) linkEl.classList.add('active');
-    window.scrollTo(0,0);
-  }
+ function showPage(id, linkEl) {
+  // أول حاجة: اخفي كل الصفحات
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+    p.style.display = 'none';
+  });
+  
+  // تاني حاجة: وريّ الصفحة الجديدة
+  const target = document.getElementById(id);
+  target.style.display = 'block';
+  target.classList.add('active');
+  
+  // تالت حاجة: ارجع للأعلى
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  
+  // ناف بار
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  if (linkEl) linkEl.classList.add('active');
+}
 
   /* ── Hero Slider ── */
   let currentSlide = 0;
@@ -1248,6 +1438,327 @@
       }
     });
   }
+
+  /* ══════ DATA ══════
+   عدّل هنا الفولدرات والصور حسب محتواك الحقيقي
+══════════════════ */
+const CATEGORIES = {
+  living: {
+    name: 'Living Room',
+    folders: [
+      { id: 'lv-sofas',   name: 'Sofas & Sectionals', cover: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=75',
+        items: [
+          { name: 'Nordic Sofa',      img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80' },
+          { name: 'Velvet 3-Seater',  img: 'https://images.unsplash.com/photo-1601628828688-632f38a5a63e?w=900&q=80' },
+          { name: 'L-Shape Corner',   img: 'https://images.unsplash.com/photo-1540574163026-643ea20ade25?w=900&q=80' },
+          { name: 'Lounge Chair',     img: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=900&q=80' },
+        ]
+      },
+      { id: 'lv-tables',  name: 'Coffee Tables',       cover: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=75',
+        items: [
+          { name: 'Marble Top Table', img: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=900&q=80' },
+          { name: 'Walnut Round',     img: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=900&q=80' },
+          { name: 'Glass & Steel',    img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80' },
+        ]
+      },
+      { id: 'lv-shelves', name: 'Shelving & Storage',  cover: 'https://images.unsplash.com/photo-1567016526105-22da7c13161a?w=600&q=75',
+        items: [
+          { name: 'Oak Bookshelf',    img: 'https://images.unsplash.com/photo-1567016526105-22da7c13161a?w=900&q=80' },
+          { name: 'Floating Shelves', img: 'https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=900&q=80' },
+        ]
+      },
+      { id: 'lv-rugs',    name: 'Rugs & Carpets',      cover: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=600&q=75',
+        items: [
+          { name: 'Persian Rug',      img: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=900&q=80' },
+          { name: 'Shaggy Ivory',     img: 'https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=900&q=80' },
+          { name: 'Geometric Blue',   img: 'https://images.unsplash.com/photo-1584184924103-e310d9dc82fc?w=900&q=80' },
+        ]
+      },
+    ]
+  },
+  bedroom: {
+    name: 'Bedroom',
+    folders: [
+      { id: 'bd-beds',    name: 'Beds & Frames',        cover: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=600&q=75',
+        items: [
+          { name: 'Velvet Bed Frame', img: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=900&q=80' },
+          { name: 'Solid Wood King',  img: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900&q=80' },
+          { name: 'Platform Bed',     img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=900&q=80' },
+        ]
+      },
+      { id: 'bd-wardrobes', name: 'Wardrobes',          cover: 'https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=600&q=75',
+        items: [
+          { name: 'Sliding Wardrobe', img: 'https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=900&q=80' },
+          { name: 'Walk-in System',   img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80' },
+        ]
+      },
+      { id: 'bd-nightstands', name: 'Nightstands',      cover: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=75',
+        items: [
+          { name: 'Marble Nightstand',img: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=900&q=80' },
+          { name: 'Oak Bedside',      img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=900&q=80' },
+        ]
+      },
+    ]
+  },
+  dining: {
+    name: 'Dining Room',
+    folders: [
+      { id: 'dn-tables',  name: 'Dining Tables',        cover: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=75',
+        items: [
+          { name: 'Walnut Table 6-Seat', img: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=900&q=80' },
+          { name: 'Glass Dining Table',  img: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=900&q=80' },
+          { name: 'Round Oak Table',     img: 'https://images.unsplash.com/photo-1534349762230-e0cadf78f5da?w=900&q=80' },
+        ]
+      },
+      { id: 'dn-chairs',  name: 'Dining Chairs',        cover: 'https://images.unsplash.com/photo-1504194921103-f8b80cadd5e4?w=600&q=75',
+        items: [
+          { name: 'Fabric Chair Set',  img: 'https://images.unsplash.com/photo-1504194921103-f8b80cadd5e4?w=900&q=80' },
+          { name: 'Metal Bar Stools',  img: 'https://images.unsplash.com/photo-1519947486511-46149fa0a254?w=900&q=80' },
+        ]
+      },
+    ]
+  },
+  kitchen: {
+    name: 'Kitchen',
+    folders: [
+      { id: 'kt-cabinets', name: 'Cabinets & Units',    cover: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=75',
+        items: [
+          { name: 'Modern White Kitchen', img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80' },
+          { name: 'Wooden Kitchen Set',   img: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=900&q=80' },
+        ]
+      },
+      { id: 'kt-islands',  name: 'Kitchen Islands',     cover: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=600&q=75',
+        items: [
+          { name: 'Marble Island',   img: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=900&q=80' },
+          { name: 'Portable Island', img: 'https://images.unsplash.com/photo-1556909196-65e3f3f8b196?w=900&q=80' },
+        ]
+      },
+    ]
+  },
+  office: {
+    name: 'Office',
+    folders: [
+      { id: 'of-desks',   name: 'Desks',                cover: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=75',
+        items: [
+          { name: 'Standing Desk',   img: 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=900&q=80' },
+          { name: 'Executive Desk',  img: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=900&q=80' },
+          { name: 'Corner Desk',     img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80' },
+        ]
+      },
+      { id: 'of-chairs',  name: 'Office Chairs',        cover: 'https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?w=600&q=75',
+        items: [
+          { name: 'Ergonomic Chair', img: 'https://images.unsplash.com/photo-1589834390005-5d4fb9bf3d32?w=900&q=80' },
+          { name: 'Mesh Back Chair', img: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=900&q=80' },
+        ]
+      },
+    ]
+  },
+  lighting: {
+    name: 'Lighting',
+    folders: [
+      { id: 'lt-ceiling', name: 'Ceiling Lights',       cover: 'https://images.unsplash.com/photo-1513506003901-1e6a35a91e2c?w=600&q=75',
+        items: [
+          { name: 'Sputnik Chandelier', img: 'https://images.unsplash.com/photo-1513506003901-1e6a35a91e2c?w=900&q=80' },
+          { name: 'Pendant Cluster',    img: 'https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=900&q=80' },
+        ]
+      },
+      { id: 'lt-floor',  name: 'Floor Lamps',           cover: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=75',
+        items: [
+          { name: 'Arc Floor Lamp',  img: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=900&q=80' },
+          { name: 'Tripod Lamp',     img: 'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?w=900&q=80' },
+        ]
+      },
+      { id: 'lt-table',  name: 'Table Lamps',           cover: 'https://images.unsplash.com/photo-1530305408560-82d13781b33a?w=600&q=75',
+        items: [
+          { name: 'Ceramic Table Lamp', img: 'https://images.unsplash.com/photo-1530305408560-82d13781b33a?w=900&q=80' },
+          { name: 'Industrial Lamp',    img: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=900&q=80' },
+        ]
+      },
+    ]
+  },
+  decor: {
+    name: 'Decor',
+    folders: [
+      { id: 'dc-vases',  name: 'Vases & Planters',      cover: 'https://images.unsplash.com/photo-1490750967868-88df5691cc7c?w=600&q=75',
+        items: [
+          { name: 'Ceramic Vase Set', img: 'https://images.unsplash.com/photo-1490750967868-88df5691cc7c?w=900&q=80' },
+          { name: 'Terracotta Pot',   img: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=900&q=80' },
+        ]
+      },
+      { id: 'dc-mirrors', name: 'Mirrors',              cover: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=75',
+        items: [
+          { name: 'Arched Mirror',    img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80' },
+          { name: 'Round Gold Frame', img: 'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=900&q=80' },
+        ]
+      },
+      { id: 'dc-pillows', name: 'Cushions & Throws',    cover: 'https://images.unsplash.com/photo-1616486701797-0f33f61038ec?w=600&q=75',
+        items: [
+          { name: 'Velvet Cushion Set', img: 'https://images.unsplash.com/photo-1616486701797-0f33f61038ec?w=900&q=80' },
+          { name: 'Knit Throw',         img: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=900&q=80' },
+        ]
+      },
+    ]
+  },
+};
+ 
+/* ══════ STATE ══════ */
+let currentCat   = null;
+let currentFolder = null;
+let lbImages     = [];
+let lbIndex      = 0;
+ 
+/* ══════ NAVIGATION ══════ */
+function selectCategory(cat, btn) {
+  document.querySelectorAll('.cat-menu-item').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+ 
+  if (cat === 'all') {
+    // في الـ all اعرض كل الكاتيجوريز في level1
+    document.querySelectorAll('.cat-card').forEach(c => c.style.display = '');
+    goBack(1);
+    return;
+  }
+ 
+  // لو اتضغط كاتيجوري من السايدبار وهو موجود في البيانات، افتحه مباشرة
+  if (CATEGORIES[cat]) {
+    openCategory(cat);
+  }
+}
+ 
+function openCategory(catId) {
+  currentCat = catId;
+  const cat = CATEGORIES[catId];
+  if (!cat) return;
+ 
+  // بناء الفولدرات
+  const grid = document.getElementById('folderGrid');
+  grid.innerHTML = cat.folders.map((folder, i) => `
+    <div class="folder-card" style="animation-delay:${i*0.06}s" onclick="openFolder('${folder.id}')">
+      <img src="${folder.cover}" alt="${folder.name}">
+      <div class="folder-card-footer">
+        <div>
+          <h4>${folder.name}</h4>
+          <span>${folder.items.length} Items</span>
+        </div>
+        <button class="folder-card-arrow">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+ 
+  document.getElementById('level2-breadcrumb').textContent = cat.name;
+  document.getElementById('level2-title').innerHTML = `Browse<br><strong>${cat.name}.</strong>`;
+ 
+  showLevel(2);
+}
+ 
+function openFolder(folderId) {
+  // إيجاد الفولدر في الكاتيجوري الحالية
+  const cat = CATEGORIES[currentCat];
+  const folder = cat.folders.find(f => f.id === folderId);
+  if (!folder) return;
+  currentFolder = folder;
+  lbImages = folder.items;
+ 
+  const grid = document.getElementById('itemsGrid');
+  grid.innerHTML = folder.items.map((item, i) => `
+    <div class="item-card" style="animation-delay:${i*0.06}s" onclick="openLightbox(${i})">
+      <img src="${item.img}" alt="${item.name}">
+      <div class="item-card-label">${item.name}</div>
+    </div>
+  `).join('');
+ 
+  document.getElementById('level3-breadcrumb').textContent = `${cat.name} › ${folder.name}`;
+  document.getElementById('level3-title').innerHTML = `${folder.name}<br><strong>Items.</strong>`;
+ 
+  showLevel(3);
+}
+ 
+function showLevel(n) {
+  document.querySelector('.cat-cards-area').scrollTop = 0;
+  
+  const current = [1,2,3].find(i => document.getElementById('level'+i).style.display !== 'none');
+  
+  if (current && current !== n) {
+    // أخفي القديم الأول
+    const oldEl = document.getElementById('level'+current);
+    oldEl.style.opacity = '0';
+    
+    setTimeout(() => {
+      oldEl.style.display = 'none';
+      
+      // بعدها وريّ الجديد
+      const newEl = document.getElementById('level'+n);
+      newEl.style.display = 'block';
+      newEl.style.opacity = '0';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          newEl.style.opacity = '1';
+        });
+      });
+    }, 300);
+    
+  } else {
+    // أول مرة أو نفس الـ level
+    [1,2,3].forEach(i => {
+      const el = document.getElementById('level'+i);
+      if (i === n) {
+        el.style.display = 'block';
+        requestAnimationFrame(() => { el.style.opacity = '1'; });
+      } else {
+        el.style.opacity = '0';
+        el.style.display = 'none';
+      }
+    });
+  }
+}
+ 
+function goBack(toLevel) {
+  showLevel(toLevel);
+  if (toLevel === 1) currentCat = null;
+  if (toLevel === 2) currentFolder = null;
+}
+ 
+/* ══════ LIGHTBOX ══════ */
+function openLightbox(index) {
+  lbIndex = index;
+  renderLightbox();
+  const lb = document.getElementById('lightbox');
+  lb.style.display = 'flex';
+  document.addEventListener('keydown', lbKeydown);
+}
+ 
+function renderLightbox() {
+  const item = lbImages[lbIndex];
+  const img  = document.getElementById('lb-img');
+  img.style.opacity = '0';
+  setTimeout(() => {
+    img.src = item.img;
+    img.onload = () => { img.style.opacity = '1'; };
+    document.getElementById('lb-title').textContent   = item.name;
+    document.getElementById('lb-counter').textContent = `${lbIndex+1} / ${lbImages.length}`;
+  }, 150);
+}
+ 
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.removeEventListener('keydown', lbKeydown);
+}
+ 
+function lightboxNext() { lbIndex = (lbIndex+1) % lbImages.length; renderLightbox(); }
+function lightboxPrev() { lbIndex = (lbIndex-1+lbImages.length) % lbImages.length; renderLightbox(); }
+ 
+function lbKeydown(e) {
+  if (e.key === 'ArrowRight') lightboxNext();
+  if (e.key === 'ArrowLeft')  lightboxPrev();
+  if (e.key === 'Escape')     closeLightbox();
+}
+ 
+// إغلاق الـ lightbox لما تضغط برا الصورة
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
 </script>
 
 </body>
