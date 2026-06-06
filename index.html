@@ -523,9 +523,8 @@ body {
 }
 
   .cat-bg {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  z-index: 0;
   background-size: cover;
   background-position: center;
   background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80');
@@ -550,7 +549,7 @@ body {
   width: 100%;
   min-height: calc(100vh - var(--nav-h));
   padding-top: var(--nav-h);
-  height: auto;  
+  height: auto;
 }
 
 
@@ -597,12 +596,12 @@ body {
 
   /* Cards area */
 .cat-cards-area {
-  overflow-y: auto;
+  overflow-y: visible;
+  height: auto;
   padding: 0 2rem 2.5rem 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: calc(100vh - var(--nav-h));
 }
 
 #level1 {
