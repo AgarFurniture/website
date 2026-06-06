@@ -510,7 +510,7 @@ body {
     height: 100vh;
     position: relative;
     display: flex; align-items: flex-end;
-    overflow: hidden;
+     overflow: visible;
   }
 
   .cat-bg {
@@ -526,7 +526,7 @@ body {
       rgba(10,14,10,0.55) 0%,
       rgba(10,14,10,0.3) 30%,
       rgba(10,14,10,0.85) 100%
-    );
+    ); pointer-events: none;
   }
 
   .cat-layout {
@@ -1003,7 +1003,7 @@ body {
   .cat-menu-item { padding: 0.4rem 0.75rem; font-size: 0.78rem; width: auto; }
   .cat-menu-item svg { display: none; }
   .cat-cards-area { padding: 1rem 1rem 2rem; min-height: 60vh; }
-  .cat-hero { height: auto; min-height: 100vh; }
+.cat-hero { height: auto; min-height: 100vh; overflow: visible; }
   .cat-cards-title { font-size: 1.5rem; }
   .cat-card { height: 160px; }
   .folder-card { height: 150px; }
