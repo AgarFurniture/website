@@ -88,6 +88,34 @@
   ::-webkit-scrollbar-track { background: var(--darker); }
   ::-webkit-scrollbar-thumb { background: var(--olive); border-radius: 99px; }
 
+
+
+  .partners-marquee-wrap {
+  display: none;
+  overflow: hidden;
+  width: 100%;
+}
+
+.partners-marquee {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  width: max-content;
+  animation: marquee 14s linear infinite;
+}
+
+.partners-marquee img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
   /* ─── PAGE WRAPPER ─── */
 body {
   font-family: 'Outfit', sans-serif;
@@ -974,6 +1002,33 @@ body {
   gap: 2rem 4rem;
 }
 
+.partners-marquee-wrap {
+  display: none;
+  overflow: hidden;
+  width: 100%;
+}
+
+.partners-marquee {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  width: max-content;
+  animation: marquee 12s linear infinite;
+}
+
+.partners-marquee img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 
 .mobile-nav-dropdown a,
 .mobile-nav-dropdown .social-drop-item {
@@ -1125,6 +1180,8 @@ body {
   }
   .partners-row::-webkit-scrollbar { display: none; }
   .partners-row img { flex-shrink: 0; height: 55px !important; }
+   .partners-row { display: none; }
+  .partners-marquee-wrap { display: block; }
 }
 
 /* ══════ SMALL (≤400px) ══════ */
@@ -1602,7 +1659,9 @@ body {
  
     <p id="lb-title" style="margin-top:3rem; font-size:0.95rem; color:rgba(255,255,255,0.75); font-weight:500;"></p>
   </div>
- <!-- Our Partners -->
+
+
+    <!-- Our Partners -->
 <div style="
   padding: 3rem 3rem 2rem;
   background: rgba(0,0,0,0.35);
@@ -1619,15 +1678,36 @@ body {
     margin-bottom: 1.8rem;
   ">Our Partners</p>
 
-    <div class="partners-row">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnd0MvuKRjVOFT5sUPXUM0FoiKCEdGbld-Sg&s" style="height:120px; width:auto; object-fit:contain; opacity:0.6; filter:grayscale(0) brightness(1); transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDiBMFOz0fgs0vEhu3uL40edrzWva64Ob_ew&s" style="height:120px; width:auto; object-fit:contain; opacity:0.6; filter:grayscale(0) brightness(1); transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
-    <img src="https://data.still.de/assets/products/News/2017/Starwood_RX-60-70-Elektrostapler5.png?w=1920&fit=max&fm=webp&s=f0789ed4f58bdf92ff8965f5ccdca623" style="height:120px; width:auto; object-fit:contain; opacity:0.6; filter:grayscale(0) brightness(1); transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSw3636PvmtBxfXueSlnTeIL5GHvCQHvVmIw&s" style="height:120px; width:auto; object-fit:contain; opacity:0.6; filter:grayscale(0) brightness(1); transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
-    <img src="https://media.licdn.com/dms/image/v2/C560BAQF_eRPorJowwA/company-logo_200_200/company-logo_200_200/0/1648654504388/elkhalilwood_logo?e=2147483647&v=beta&t=eMKRUTm3HL2aGa1_WFX1sx8_YDZnwKFz8YJeE5iZzlc" style="height:120px; width:auto; object-fit:contain; opacity:0.6; filter:grayscale(0) brightness(1); transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJQB6szQDdupcu8RxEbu9yGJ5YkAKARfG10Q&s" style="height:120px; width:auto; object-fit:contain; opacity:0.6; filter:grayscale(0) brightness(1); transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.55'">
+  <!-- Desktop -->
+  <div class="partners-row">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnd0MvuKRjVOFT5sUPXUM0FoiKCEdGbld-Sg&s" style="height:120px;width:auto;object-fit:contain;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDiBMFOz0fgs0vEhu3uL40edrzWva64Ob_ew&s" style="height:120px;width:auto;object-fit:contain;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+    <img src="https://data.still.de/assets/products/News/2017/Starwood_RX-60-70-Elektrostapler5.png?w=1920&fit=max&fm=webp&s=f0789ed4f58bdf92ff8965f5ccdca623" style="height:120px;width:auto;object-fit:contain;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSw3636PvmtBxfXueSlnTeIL5GHvCQHvVmIw&s" style="height:120px;width:auto;object-fit:contain;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+    <img src="https://media.licdn.com/dms/image/v2/C560BAQF_eRPorJowwA/company-logo_200_200/company-logo_200_200/0/1648654504388/elkhalilwood_logo?e=2147483647&v=beta&t=eMKRUTm3HL2aGa1_WFX1sx8_YDZnwKFz8YJeE5iZzlc" style="height:120px;width:auto;object-fit:contain;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJQB6szQDdupcu8RxEbu9yGJ5YkAKARfG10Q&s" style="height:120px;width:auto;object-fit:contain;opacity:0.6;transition:opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">
+  </div>
+
+  <!-- Mobile Marquee -->
+  <div class="partners-marquee-wrap">
+    <div class="partners-marquee" id="partnersMarquee">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnd0MvuKRjVOFT5sUPXUM0FoiKCEdGbld-Sg&s">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDiBMFOz0fgs0vEhu3uL40edrzWva64Ob_ew&s">
+      <img src="https://data.still.de/assets/products/News/2017/Starwood_RX-60-70-Elektrostapler5.png?w=1920&fit=max&fm=webp&s=f0789ed4f58bdf92ff8965f5ccdca623">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSw3636PvmtBxfXueSlnTeIL5GHvCQHvVmIw&s">
+      <img src="https://media.licdn.com/dms/image/v2/C560BAQF_eRPorJowwA/company-logo_200_200/company-logo_200_200/0/1648654504388/elkhalilwood_logo?e=2147483647&v=beta&t=eMKRUTm3HL2aGa1_WFX1sx8_YDZnwKFz8YJeE5iZzlc">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJQB6szQDdupcu8RxEbu9yGJ5YkAKARfG10Q&s">
+      <!-- نسخة تانية عشان الحركة تبان مستمرة -->
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnd0MvuKRjVOFT5sUPXUM0FoiKCEdGbld-Sg&s">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDiBMFOz0fgs0vEhu3uL40edrzWva64Ob_ew&s">
+      <img src="https://data.still.de/assets/products/News/2017/Starwood_RX-60-70-Elektrostapler5.png?w=1920&fit=max&fm=webp&s=f0789ed4f58bdf92ff8965f5ccdca623">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSw3636PvmtBxfXueSlnTeIL5GHvCQHvVmIw&s">
+      <img src="https://media.licdn.com/dms/image/v2/C560BAQF_eRPorJowwA/company-logo_200_200/company-logo_200_200/0/1648654504388/elkhalilwood_logo?e=2147483647&v=beta&t=eMKRUTm3HL2aGa1_WFX1sx8_YDZnwKFz8YJeE5iZzlc">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJQB6szQDdupcu8RxEbu9yGJ5YkAKARfG10Q&s">
+    </div>
   </div>
 </div>
+
   <footer>
     <div class="logo-text">AGAR</div>
     <p>© 2025 AGAR Furniture Store. All rights reserved.</p>
