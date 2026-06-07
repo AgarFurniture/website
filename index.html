@@ -499,9 +499,35 @@ body {
   /* ══════════════════════════════════════════
      CATEGORY PAGE
   ══════════════════════════════════════════ */
-  #category { 
+  #category {
   min-height: 100vh;
   position: relative;
+  isolation: isolate;
+}
+
+#category::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80');
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  z-index: -1;
+}
+
+#category::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,14,10,0.55) 0%,
+    rgba(10,14,10,0.3) 30%,
+    rgba(10,14,10,0.85) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
 }
 #category footer {
   position: relative;
@@ -517,13 +543,7 @@ body {
   min-height: 100vh;
 }
 
-  .cat-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1800&q=80');
-}
+  
   .cat-bg::after {
     content: '';
     position: absolute; inset: 0;
@@ -992,7 +1012,7 @@ body {
   height: 38px;
   border: 1px solid var(--card-border);
   background: rgba(255,255,255,0.05);
-   margin-right: 4px;
+   margin-right: 3px;
 }
 /* ══════ TABLET (≤1024px) ══════ */
 @media (max-width: 1024px) {
@@ -1021,6 +1041,12 @@ body {
 
 /* ══════ MOBILE (≤767px) ══════ */
 @media (max-width: 767px) {
+   #category {
+    background-attachment: scroll;
+  }
+  #category::before {
+    position: absolute;  
+  }
   nav { padding: 0 1rem; }
   .nav-logo img { height: 42px; }
   .nav-right { gap: 0.5rem; }
@@ -1351,7 +1377,7 @@ body {
 <div id="category" class="page">
  
   <section class="cat-hero">
-    <div class="cat-bg"></div>
+   
  
     <div class="cat-layout">
       <!-- Sidebar -->
@@ -1486,7 +1512,7 @@ body {
  
         <!-- Level 2: Folders inside a category -->
         <div id="level2" style="display:none; opacity:0; transition: opacity 0.4s;">
-          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem;">
+<div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem; margin-top: 0.5rem;">
             <button class="back-btn" onclick="goBack(1)">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
               Back
@@ -1499,8 +1525,8 @@ body {
  
         <!-- Level 3: Images inside a folder -->
         <div id="level3" style="display:none; opacity:0; transition: opacity 0.4s;">
-          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem;">
-            <button class="back-btn" onclick="goBack(2)">
+          <div style="display:flex; align-items:center; gap:0.8rem; margin-bottom:0.5rem; margin-top: 0.5rem;">
+  <button class="back-btn" onclick="goBack(2)">
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
               Back
             </button>
