@@ -90,32 +90,6 @@
 
 
 
-  .partners-marquee-wrap {
-  display: none;
-  overflow: hidden;
-  width: 100%;
-}
-
-.partners-marquee {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  width: max-content;
-  animation: marquee 14s linear infinite;
-}
-
-.partners-marquee img {
-  height: 70px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.6;
-  flex-shrink: 0;
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
   /* ─── PAGE WRAPPER ─── */
 body {
   font-family: 'Outfit', sans-serif;
@@ -1011,13 +985,13 @@ body {
 .partners-marquee {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1rem;
   width: max-content;
   animation: marquee 12s linear infinite;
 }
 
 .partners-marquee img {
-  height: 50px;
+  height: 90px;
   width: auto;
   object-fit: contain;
   opacity: 0.6;
